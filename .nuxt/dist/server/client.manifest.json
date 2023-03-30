@@ -1,0 +1,15 @@
+{
+  "@vite/client": {
+    "isEntry": true,
+    "file": "@vite/client",
+    "css": [],
+    "module": true,
+    "resourceType": "script"
+  },
+  "/Users/Jay/Documents/CMGT/Jaar 3/PLE/queerly-optimistic/node_modules/nuxt/dist/app/entry.js": {
+    "resourceType": "script",
+    "module": true,
+    "isEntry": true,
+    "file": "/Users/Jay/Documents/CMGT/Jaar 3/PLE/queerly-optimistic/node_modules/nuxt/dist/app/entry.js"
+  }
+}
