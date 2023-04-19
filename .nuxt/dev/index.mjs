@@ -671,13 +671,14 @@ const getSPARenderer = lazyCachedFunction(async () => {
   const renderToString = (ssrContext) => {
     const config = useRuntimeConfig();
     ssrContext.payload = {
+      _errors: {},
       serverRendered: false,
-      config: {
-        public: config.public,
-        app: config.app
-      },
       data: {},
       state: {}
+    };
+    ssrContext.config = {
+      public: config.public,
+      app: config.app
     };
     ssrContext.renderMeta = ssrContext.renderMeta ?? getStaticRenderedHead;
     return Promise.resolve(result);
@@ -709,11 +710,12 @@ const renderer = defineRenderHandler(async (event) => {
     url,
     event,
     runtimeConfig: useRuntimeConfig(),
-    noSSR: !!event.node.req.headers["x-nuxt-no-ssr"] || routeOptions.ssr === false || (false),
+    noSSR: event.context.nuxt?.noSSR || routeOptions.ssr === false || (false),
     error: !!ssrError,
     nuxt: void 0,
     /* NuxtApp */
     payload: ssrError ? { error: ssrError } : {},
+    _payloadReducers: {},
     islandContext
   };
   const renderer = ssrContext.noSSR ? await getSPARenderer() : await getSSRRenderer();
@@ -721,6 +723,9 @@ const renderer = defineRenderHandler(async (event) => {
     throw !ssrError && ssrContext.payload?.error || error;
   });
   await ssrContext.nuxt?.hooks.callHook("app:rendered", { ssrContext });
+  if (event.node.res.headersSent || event.node.res.writableEnded) {
+    return;
+  }
   if (ssrContext.payload?.error && !ssrError) {
     throw ssrContext.payload.error;
   }
@@ -730,13 +735,14 @@ const renderer = defineRenderHandler(async (event) => {
   }
   const renderedMeta = await ssrContext.renderMeta?.() ?? {};
   const inlinedStyles = "";
+  const NO_SCRIPTS = routeOptions.experimentalNoScripts;
   const htmlContext = {
     island: Boolean(islandContext),
     htmlAttrs: normalizeChunks([renderedMeta.htmlAttrs]),
     head: normalizeChunks([
       renderedMeta.headTags,
       null,
-      _rendered.renderResourceHints(),
+      NO_SCRIPTS ? null : _rendered.renderResourceHints(),
       _rendered.renderStyles(),
       inlinedStyles,
       ssrContext.styles
@@ -748,8 +754,8 @@ const renderer = defineRenderHandler(async (event) => {
     ]),
     body: [_rendered.html],
     bodyAppend: normalizeChunks([
-      `<script>window.__NUXT__=${devalue(ssrContext.payload)}<\/script>`,
-      _rendered.renderScripts(),
+      NO_SCRIPTS ? void 0 : renderPayloadScript({ ssrContext, data: ssrContext.payload }),
+      routeOptions.experimentalNoScripts ? void 0 : _rendered.renderScripts(),
       // Note: bodyScripts may contain tags other than <script>
       renderedMeta.bodyScripts
     ])
@@ -800,10 +806,14 @@ function renderPayloadResponse(ssrContext) {
     statusCode: ssrContext.event.node.res.statusCode,
     statusMessage: ssrContext.event.node.res.statusMessage,
     headers: {
-      "content-type": "text/javascript;charset=UTF-8",
+      "content-type": "text/javascript;charset=utf-8",
       "x-powered-by": "Nuxt"
     }
   };
+}
+function renderPayloadScript(opts) {
+  opts.data.config = opts.ssrContext.config;
+  return `<script>window.__NUXT__=${devalue(opts.data)}<\/script>`;
 }
 function splitPayload(ssrContext) {
   const { data, prerenderedAt, ...initial } = ssrContext.payload;
