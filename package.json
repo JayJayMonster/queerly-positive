@@ -1,0 +1,23 @@
+{
+  "name": "queerly-optimistic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "start": "nuxt start"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.6.5",
+    "@pinia/nuxt": "^0.4.8",
+    "@studiometa/vue-mapbox-gl": "^2.0.4",
+    "mapbox-gl": "^2.13.0",
+    "nuxt": "^3.3.2",
+    "vite-svg-loader": "^4.0.0",
+    "vue": "^3.2.37"
+  }
+}
