@@ -1,8 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import svgLoader from 'vite-svg-loader';
 export default defineNuxtConfig({
   alias: {
     pinia: '/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs',
   },
+  buildModules: ['@nuxtjs/svg'],
   head: {
     link: [
       {
@@ -36,4 +38,18 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  svg: {
+    vueSvgLoader: {
+      // vue-svg-loader options
+    },
+    svgSpriteLoader: {
+      // svg-sprite-loader options
+    },
+    fileLoader: {
+      // file-loader options
+    },
+  },
+  vite: {
+    plugins: [svgLoader()],
+  },
 });
