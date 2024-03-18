@@ -1,1 +1,1 @@
-export { default } from "file:///Users/Jay/Documents/CMGT/Jaar%203/PLE/queerly-optimistic/node_modules/nuxt/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
+export { default } from "file:///Users/Jay/Documents/CMGT/Jaar%203/PLE/queerly-optimistic/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"

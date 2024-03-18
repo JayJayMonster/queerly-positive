@@ -1,6 +1,6 @@
 export const useBaseApi = (headers = {}, parameters = {}) => {
   const baseApi = $fetch.create({
-    baseURL: 'http://145.24.222.250:8080/api/',
+    baseURL: 'http://145.24.223.227:8080/api/',
     headers: {
       ...headers,
       Accept: 'application/json',
