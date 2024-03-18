@@ -1,20 +1,29 @@
 <template>
-  <div class="bg-gray-300/50 absolute z-10 left-0 top-0 px-4 py-4 m-8 rounded">
+  <div  
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
+    class="bg-gray-300/50 absolute z-10 left-0 top-0 px-4 py-4 m-8 rounded transition-all duration-300 ease-in-out">
     <h1 class="text-center bold text-xl">QUEERLY POSITIVE</h1>
     <div class="text-center bold italic text-gray-700">Spreading queer positivity, </div>
     <div class="text-center pb-2 bold italic text-gray-700">one story at a time</div>
     <hr class="h-px bg-gray-700 border-0">
-    <h1 class="text-center pb-2">Filter by category</h1>
-    <div class="grid grid-flow-row gap-4">
-      <a
-        v-for="category in categories"
-        :key="category"
-        @click="filterItems(category)"
-        class="flex items-center cursor-pointer border-black border-2 p-1 rounded"
+    <div>
+      <h1 
+      class="text-center py-2">Filter by category</h1>
+      <div 
+      v-if="hover" 
+      class="grid grid-flow-row gap-4"
       >
-        <UiMarker :fill="getMarkerColor(category)" />
-        {{ category }}
-      </a>
+        <a
+          v-for="category in categories"
+          :key="category"
+          @click="filterItems(category)"
+          class="flex items-center cursor-pointer border-black border-2 p-1 rounded"
+        >
+          <UiMarker :fill="getMarkerColor(category)" />
+          {{ category }}
+        </a>
+      </div>
     </div>
   </div>
   <MapboxMap 
@@ -47,12 +56,13 @@
   import { MapboxMap, MapboxMarker } from '@studiometa/vue-mapbox-gl';
   import 'mapbox-gl/dist/mapbox-gl.css';
 
-  const { getArticleApi } = useArticlesApi();
-  const {items : articles } = await getArticleApi();
+  // const { getArticleApi } = useArticlesApi();
+  // const {items : articles } = await getArticleApi();
 
   const filterTag = ref('All');
+  const hover = ref(false);
 
-const categories = ['LGBTQ+', 'Gay','Lesbian', 'Transgender', 'Laws', 'All'];
+const categories = ['LGBTQ+', 'Gay','Lesbian', 'Transgender', 'Non Binary', 'Laws', 'Media', 'Sports', 'Pride', 'All'];
 
 const filterItems = (tag) => {
   console.log(`Filtering items by ${tag}`);
@@ -76,15 +86,20 @@ const filteredArticles = computed(() => {
 
   const getMarkerColor = (tag) => {
     const colorMap = {
-      'LGBTQ+': '#EB5353',
-      'Gay': '#F9D923',
-      'Lesbian': '#36AE7C',
-      'Transgender': '#187498',
-      'Laws': '#8E499D',
-      'All': '#3B3A39',
+      'LGBTQ+': '#E81416',
+      'Gay': '#FFA500',
+      'Lesbian': '#FAEB36',
+      'Transgender': '#BAD725',
+      'Non Binary': '#79C314',
+      'Laws': '#61A07E',
+      'Media': '#487DE7',
+      'Sports': '#4A5AC2',
+      'Pride': '#4B369D',
+      'All': '#70369D',
     };
     return colorMap[tag] || null;
   };
+
 </script>
 
 <style>
