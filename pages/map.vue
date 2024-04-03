@@ -3,13 +3,13 @@
     @mouseover="hover = true"
     @mouseleave="hover = false"
     class="bg-gray-300/50 absolute z-10 left-0 top-0 px-4 py-4 m-8 rounded transition-all duration-300 ease-in-out">
-    <h1 class="text-center bold text-xl">QUEERLY POSITIVE</h1>
-    <div class="text-center bold italic text-gray-700">Spreading queer positivity, </div>
-    <div class="text-center pb-2 bold italic text-gray-700">one story at a time</div>
+    <h1 class="text-center font-bold text-3xl text-black font-headers">Queerly Positive</h1>
+    <div class="text-center text-lg font-light italic text-gray-700 font-headers">Spreading queer positivity, </div>
+    <div class="text-center text-lg pb-2 font-light italic text-gray-700 font-headers">one story at a time</div>
     <hr class="h-px bg-gray-700 border-0">
     <div>
       <h1 
-      class="text-center py-2">Filter by category</h1>
+      class="text-center py-2 text-md font-semibold cursor-pointer font-headers">Filter by category</h1>
       <div 
       v-if="hover" 
       class="grid grid-flow-row gap-4"
@@ -39,13 +39,13 @@
         :lng-lat="article.coordinates"
         :color="article.color"
       >
-        <template v-slot:popup class="px-4 rounded-md truncate overflow-hidden">
-          <div class="overflow-x-auto">
-            <h1 class="bold text-lg pb-2">{{ article.title }}</h1>
-            <p class="italic text-gray-700 pb-2 ">{{ article.year }}</p>
-            <p class="pb-2">{{ article.description }}</p>
-            <a class="text-gray-500 italic" :href="article.link" target="_blank">{{ article.link }}</a>
-          </div>
+        <template v-slot:popup class="px-4 rounded-md">
+          <div class="overflow-x-hidden">
+              <h1 class="text-xl font-semibold pb-2 text-gray-900 font-body">{{ article.title }}</h1>
+              <p class="text-sm italic text-gray-700 font-light pb-1 font-body">{{ article.year }}</p>
+              <p class="text-sm text-gray-800 pb-2 font-body">{{ article.description }}</p>
+              <a class="text-sm text-gray-700 italic break-all font-light hover:underline font-body" :href="article.link" target="_blank">{{ article.link }}</a>
+            </div>
         </template>
       </MapboxMarker>
     </template>
@@ -56,13 +56,13 @@
   import { MapboxMap, MapboxMarker } from '@studiometa/vue-mapbox-gl';
   import 'mapbox-gl/dist/mapbox-gl.css';
 
-  // const { getArticleApi } = useArticlesApi();
-  // const {items : articles } = await getArticleApi();
+  const { getArticleApi } = useArticlesApi();
+  const {items : articles } = await getArticleApi();
 
   const filterTag = ref('All');
   const hover = ref(false);
 
-const categories = ['LGBTQ+', 'Gay','Lesbian', 'Transgender', 'Non Binary', 'Laws', 'Media', 'Sports', 'Pride', 'All'];
+const categories = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Laws', 'Media', 'Sports', 'Pride', 'All'];
 
 const filterItems = (tag) => {
   console.log(`Filtering items by ${tag}`);
@@ -86,11 +86,10 @@ const filteredArticles = computed(() => {
 
   const getMarkerColor = (tag) => {
     const colorMap = {
-      'LGBTQ+': '#E81416',
+      'LGBTQ': '#E81416',
       'Gay': '#FFA500',
       'Lesbian': '#FAEB36',
-      'Transgender': '#BAD725',
-      'Non Binary': '#79C314',
+      'Trans': '#BAD725',
       'Laws': '#61A07E',
       'Media': '#487DE7',
       'Sports': '#4A5AC2',
@@ -99,7 +98,6 @@ const filteredArticles = computed(() => {
     };
     return colorMap[tag] || null;
   };
-
 </script>
 
 <style>

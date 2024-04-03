@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      'headers': ['Open Sans'],
+      'body': ['"Open Sans"'],
+    },
   },
   plugins: [],
 };
