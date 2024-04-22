@@ -11,18 +11,20 @@
       <h1 
       class="text-center py-2 text-md font-semibold cursor-pointer font-headers">Filter by category</h1>
       <div 
-      v-if="hover" 
+      v-if="hover"
       class="grid grid-flow-row gap-4"
       >
-        <a
+      <NuxtLink
           v-for="category in categories"
           :key="category"
-          @click="filterItems(category)"
+          @click="toggleActiveClass(category)"
+          :style="{ backgroundColor: filterTag.includes(category) ? getMarkerColor(category) : 'transparent' }"
+          :class="{'selected': filterTag.includes(category)}"
           class="flex items-center cursor-pointer border-black border-2 p-1 rounded"
         >
           <UiMarker :fill="getMarkerColor(category)" />
           {{ category }}
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -59,42 +61,43 @@
   const { getArticleApi } = useArticlesApi();
   const {items : articles } = await getArticleApi();
 
-  const filterTag = ref('All');
+  const filterTag = ref([]);
   const hover = ref(false);
 
-const categories = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Laws', 'Media', 'Sports', 'Pride', 'All'];
-
-const filterItems = (tag) => {
-  console.log(`Filtering items by ${tag}`);
-  filterTag.value = tag;
-};
-
+const categories = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Resistance', 'Laws', 'Media', 'Sports', 'Pride'];
+  
+// Function to filter articles based on selected tags
 const filteredArticles = computed(() => {
-    const tag = filterTag.value;
-    if (tag === 'All') {
-      return articles.map((article) => ({
-        ...article,
-        color: getMarkerColor(article.tag),
-      }));
-    } else {
-      return articles.filter((article) => article.tag.includes(tag)).map((article) => ({
-        ...article,
-        color: getMarkerColor(article.tag),
-      }));
-    }
+    if (!filterTag.value.length) return articles; // Return all articles if no filters selected
+    return articles.filter((article) => filterTag.value.includes(article.tag)).map((article) => ({
+      ...article,
+      color: getMarkerColor(article.tag),
+    }));
   });
 
+ // Function to toggle active filter class and update filter tag
+ const toggleActiveClass = (tag) => {
+    console.log(`Toggling ${tag}`);
+    const index = filterTag.value.indexOf(tag);
+    if (index === -1) {
+      filterTag.value.push(tag); // If tag not in the array, add it
+    } else {
+      filterTag.value.splice(index, 1); // If tag already in the array, remove it
+    }
+  };
+
+  // Function to get marker color based on tag
   const getMarkerColor = (tag) => {
     const colorMap = {
       'LGBTQ': '#E81416',
       'Gay': '#FFA500',
       'Lesbian': '#FAEB36',
       'Trans': '#BAD725',
-      'Laws': '#61A07E',
-      'Media': '#487DE7',
-      'Sports': '#4A5AC2',
-      'Pride': '#4B369D',
-      'All': '#70369D',
+      'Resistance': "#61A07E",
+      'Laws': '#487DE7',
+      'Media': '#4A5AC2',
+      'Sports': '#4B369D',
+      'Pride': '#70369D',
     };
     return colorMap[tag] || null;
   };
@@ -114,6 +117,13 @@ const filteredArticles = computed(() => {
 
 a:hover {
   fill-opacity: 0.5;
+}
+
+.selected {
+  font-weight: bold;
+  color: black;
+  font-size: 1.1rem; /* Increase font size */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add box-shadow */
 }
 </style>
 
