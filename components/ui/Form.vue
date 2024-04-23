@@ -76,7 +76,7 @@ const formData =ref({
 
 const updateFormData = async formData => {
   const { postArticleApi } = useArticlesApi();
-  const { data } = await postArticleApi('articles', {
+  const { data } = await postArticleApi({
     method: 'POST',
     body: {
       title: formData.title,
@@ -85,7 +85,7 @@ const updateFormData = async formData => {
       tag: formData.tag,
       link: formData.link,
       coordinates: [formData.longitude, formData.latitude],
-      color: getTagColor(formData.value.tag), // Add color property based on selected tag
+      color: getTagColor(formData.tag), // Add color property based on selected tag
     },
   });
   emit('submit', data);
