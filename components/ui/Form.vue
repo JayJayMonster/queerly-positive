@@ -2,38 +2,46 @@
     <div class="container mx-auto">
       <form @submit.prevent="submitForm">
         <div class="mb-4">
-        <input v-model="formData.link" placeholder="Url" class="w-full p-2 border rounded"/>
-      </div>
+          <input v-model="formData.link" placeholder="Url" class="w-full p-2 border rounded"/>
+        </div>
         <div class="mb-4">
-        <input v-model="formData.title" placeholder="Title" class="w-full p-2 border rounded"/>
-      </div>
-      <div class="mb-4">
-        <input v-model="formData.description" placeholder="Description" class="w-full p-2 border rounded"/>
-      </div>
-      <div class="mb-4">
-        <input v-model="formData.year" placeholder="Publication date" class="w-full p-2 border rounded"/>
-      </div>
-      <div class="mb-4">
-        <fieldset>
-          <legend>Tag:</legend>
-          <div class="grid grid-cols-3 gap-3">
-            <div v-for="tag in tags" :key="tag" class="flex items-center">
-              <input type="radio" :id="tag" :value="tag" v-model="formData.tag" class="mr-1">
-              <label :for="tag">{{ tag }}</label>
-            </div>
+          <input v-model="formData.title" placeholder="Title" class="w-full p-2 border rounded"/>
+        </div>
+        <div class="mb-4">
+          <input v-model="formData.description" placeholder="Description" class="w-full p-2 border rounded"/>
+        </div>
+        <div class="mb-4">
+          <input v-model="formData.year" placeholder="Publication date" class="w-full p-2 border rounded"/>
+        </div>
+        <div class="flex mb-4">
+          <div class="mr-2">
+            <input v-model="formData.latitude" placeholder="Latitude" class="w-full p-2 border rounded"/>
           </div>
-        </fieldset>
+          <div class="ml-2">
+            <input v-model="formData.longitude" placeholder="Longitude" class="w-full p-2 border rounded"/>
+          </div>
+        </div>
+        <div class="mb-4">
+          <fieldset>
+            <legend>Tag:</legend>
+            <div class="grid grid-cols-3 gap-3">
+              <div v-for="tag in tags" :key="tag" class="flex items-center">
+                <input type="radio" :id="tag" :value="tag" v-model="formData.tag" class="mr-1">
+                <label :for="tag">{{ tag }}</label>
+              </div>
             </div>
-                <NuxtLink 
-                    @click="updateFormData(formData)"
-                    class="flex flex-row items-center cursor-pointer px-14 content-evenly	 ">Send new article
-                    <div class="svg-component">
-                <Plus />
-            </div>  
+          </fieldset>
+        </div>
+        <NuxtLink @click="updateFormData(formData)" class="flex flex-row items-center cursor-pointer px-14 content-evenly">
+          Send new article
+          <div class="svg-component">
+            <Plus />
+          </div>
         </NuxtLink>
-        </form>
+      </form>
     </div>
-</template>
+  </template>
+  
   
 <script setup>
 import { defineEmits } from 'vue'; // Import defineEmits from Vue 3
@@ -48,6 +56,7 @@ const formData =ref({
     year: '',
     tag: '',
     link: '',
+    coordinates: [],
 });
 
 const updateFormData = async formData => {
@@ -55,11 +64,12 @@ const updateFormData = async formData => {
   const { data } = await postArticleApi('articles', {
     method: 'POST',
     body: {
-      title: formData.value.title,
-      description: formData.value.description,
-      year: formData.value.year,
-      tag: formData.value.tag,
-      link: formData.value.link,
+      title: formData.title,
+      description: formData.description,
+      year: formData.year,
+      tag: formData.tag,
+      link: formData.link,
+      coordinates: [formData.longitude, formData.latitude]
     },
   });
   emit('submit', data);
