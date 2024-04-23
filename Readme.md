@@ -1,12 +1,12 @@
 # Queerly Positive
 
-This is the repo for Queerly Positive for PLE.
+This is the repo for Queerly Positive.
 
 Let's show all the good, the positive and the wins for the community.
 
 ## Getting started
 
-1. Open your favorite IDE and then a terminal and copy the code:
+1. Open your favorite IDE and then a terminal and copy the complete code. 
 
 2. Follow the installation process (please note this instructions assumes you’ve chosen npm as a module packager)
 
