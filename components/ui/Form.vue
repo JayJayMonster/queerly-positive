@@ -2,23 +2,23 @@
     <div class="container mx-auto">
       <form @submit.prevent="submitForm">
         <div class="mb-4">
-          <input v-model="formData.link" placeholder="Url" class="w-full p-2 border rounded"/>
+          <input required v-model="formData.link" placeholder="Url" class="w-full p-2 border rounded"/>
         </div>
         <div class="mb-4">
-          <input v-model="formData.title" placeholder="Title" class="w-full p-2 border rounded"/>
+          <input required v-model="formData.title" placeholder="Title" class="w-full p-2 border rounded"/>
         </div>
         <div class="mb-4">
-          <input v-model="formData.description" placeholder="Description" class="w-full p-2 border rounded"/>
+          <input required v-model="formData.description" placeholder="Description" class="w-full p-2 border rounded"/>
         </div>
         <div class="mb-4">
-          <input v-model="formData.year" placeholder="Publication date" class="w-full p-2 border rounded"/>
+          <input required v-model="formData.year" placeholder="Publication date" class="w-full p-2 border rounded"/>
         </div>
         <div class="flex mb-4">
           <div class="mr-2">
-            <input v-model="formData.latitude" placeholder="Latitude" class="w-full p-2 border rounded"/>
+            <input required v-model="formData.latitude" placeholder="Latitude" class="w-full p-2 border rounded"/>
           </div>
           <div class="ml-2">
-            <input v-model="formData.longitude" placeholder="Longitude" class="w-full p-2 border rounded"/>
+            <input required v-model="formData.longitude" placeholder="Longitude" class="w-full p-2 border rounded"/>
           </div>
         </div>
         <div class="mb-4">
@@ -26,7 +26,7 @@
             <legend>Tag:</legend>
             <div class="grid grid-cols-3 gap-3">
               <div v-for="tag in tags" :key="tag" class="flex items-center">
-                <input type="radio" :id="tag" :value="tag" v-model="formData.tag" class="mr-1">
+                <input required type="radio" :id="tag" :value="tag" v-model="formData.tag" class="mr-1">
                 <label :for="tag">{{ tag }}</label>
               </div>
             </div>
@@ -66,12 +66,12 @@ const getTagColor = (tag) => {
 };
 
 const formData =ref({
+    coordinates: [],
     title: '',
     description:'',
     year: '',
     tag: '',
     link: '',
-    coordinates: [],
 });
 
 const updateFormData = async formData => {
@@ -79,13 +79,14 @@ const updateFormData = async formData => {
   const { data } = await postArticleApi({
     method: 'POST',
     body: {
-      title: formData.title,
-      description: formData.description,
-      year: formData.year,
-      tag: formData.tag,
-      link: formData.link,
-      coordinates: [formData.longitude, formData.latitude],
-      color: getTagColor(formData.tag), // Add color property based on selected tag
+        coordinates: [formData.longitude, formData.latitude],
+        title: formData.title,
+        description: formData.description,
+        year: formData.year,
+        color: getTagColor(formData.tag), // Add color property based on selected tag
+        tag: formData.tag,
+        link: formData.link,
+      
     },
   });
   emit('submit', data);
