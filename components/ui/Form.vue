@@ -48,7 +48,22 @@ import { defineEmits } from 'vue'; // Import defineEmits from Vue 3
 import Plus from '@/assets/svg/plus.svg'
 
 const tags = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Resistance', 'Laws', 'Media', 'Sports', 'Pride'];
+const tagColors = {
+  'LGBTQ': '#E81416',
+  'Gay': '#FFA500',
+  'Lesbian': '#FAEB36',
+  'Trans': '#BAD725',
+  'Resistance': "#61A07E",
+  'Laws': '#487DE7',
+  'Media': '#4A5AC2',
+  'Sports': '#4B369D',
+  'Pride': '#70369D',
+};
 const emit = defineEmits(['submit']);
+
+const getTagColor = (tag) => {
+  return tagColors[tag] || null;
+};
 
 const formData =ref({
     title: '',
@@ -69,7 +84,8 @@ const updateFormData = async formData => {
       year: formData.year,
       tag: formData.tag,
       link: formData.link,
-      coordinates: [formData.longitude, formData.latitude]
+      coordinates: [formData.longitude, formData.latitude],
+      color: getTagColor(formData.value.tag), // Add color property based on selected tag
     },
   });
   emit('submit', data);
