@@ -1,8 +1,8 @@
 <template>
-  <div  
+    <div  
     @mouseover="hover = true"
     @mouseleave="hover = false"
-    class="bg-gray-300/50 absolute z-10 left-0 top-0 px-4 py-4 m-8 rounded transition-all duration-300 ease-in-out">
+    class="absolute top-0 left-0 bg-gray-300/50 px-4 py-4 m-8 z-10 rounded transition-all duration-300 ease-in-out">
     <h1 class="text-center font-bold text-3xl text-black font-headers">Queerly Positive</h1>
     <div class="text-center text-lg font-light italic text-gray-700 font-headers">Spreading queer positivity, </div>
     <div class="text-center text-lg pb-2 font-light italic text-gray-700 font-headers">one story at a time</div>
@@ -15,43 +15,47 @@
       class="grid grid-flow-row gap-4"
       >
       <NuxtLink
-          v-for="category in categories"
-          :key="category"
-          @click="toggleActiveClass(category)"
-          :style="{ backgroundColor: filterTag.includes(category) ? getMarkerColor(category) : 'transparent' }"
-          :class="{'selected': filterTag.includes(category)}"
-          class="flex items-center cursor-pointer border-black border-2 p-1 rounded"
-        >
-          <UiMarker :fill="getMarkerColor(category)" />
-          {{ category }}
-        </NuxtLink>
-      </div>
-    </div>
+      v-for="category in categories"
+      :key="category"
+      @click="toggleActiveClass(category)"
+      :style="{ backgroundColor: filterTag.includes(category) ? getMarkerColor(category) : 'transparent' }"
+      :class="{'selected': filterTag.includes(category)}"
+      class="flex items-center cursor-pointer border-black border-2 p-1 rounded"
+      >
+      <UiMarker :fill="getMarkerColor(category)" />
+      {{ category }}
+    </NuxtLink>
+  </div>
+</div>
+</div>
+<div class=" absolute bottom-0 left-0 bg-gray-300/50 px-4 py-4 z-10 m-8 rounded transition-all duration-300 ease-in-out">
+  <!-- TODO fix form -->
+  <UiForm/>
   </div>
   <MapboxMap 
-    access-token="pk.eyJ1Ijoiamptb25zdGVyIiwiYSI6ImNsZnYwd3I3dzAyc28zZXBrdHZ3d281b2cifQ.rrueXCO64olGrxsW7Y30Xg"
-    style="height: 900px"
-    map-style="mapbox://styles/jjmonster/clg3jrdz1007h01oalb7fuvlm"
-    :center="[4.4194, 50.7749]"
-    :zoom="4">
-    <template v-slot:default="{ markers }">
-      <MapboxMarker
-        v-for="(article, index) in filteredArticles"
-        :key="`${article._id}.${index}`"
-        :lng-lat="article.coordinates"
-        :color="article.color"
-      >
-        <template v-slot:popup class="px-4 rounded-md">
-          <div class="overflow-x-hidden">
-              <h1 class="text-xl font-semibold pb-2 text-gray-900 font-body">{{ article.title }}</h1>
-              <p class="text-sm italic text-gray-700 font-light pb-1 font-body">{{ article.year }}</p>
-              <p class="text-sm text-gray-800 pb-2 font-body">{{ article.description }}</p>
-              <a class="text-sm text-gray-700 italic break-all font-light hover:underline font-body" :href="article.link" target="_blank">{{ article.link }}</a>
-            </div>
-        </template>
-      </MapboxMarker>
+  access-token="pk.eyJ1Ijoiamptb25zdGVyIiwiYSI6ImNsZnYwd3I3dzAyc28zZXBrdHZ3d281b2cifQ.rrueXCO64olGrxsW7Y30Xg"
+  style="height: 900px"
+  map-style="mapbox://styles/jjmonster/clg3jrdz1007h01oalb7fuvlm"
+  :center="[4.4194, 50.7749]"
+  :zoom="4">
+  <template v-slot:default="{ markers }">
+    <MapboxMarker
+    v-for="(article, index) in filteredArticles"
+    :key="`${article._id}.${index}`"
+    :lng-lat="article.coordinates"
+    :color="article.color"
+    >
+    <template v-slot:popup class="px-4 rounded-md">
+      <div class="overflow-x-hidden">
+        <h1 class="text-xl font-semibold pb-2 text-gray-900 font-body">{{ article.title }}</h1>
+        <p class="text-sm italic text-gray-700 font-light pb-1 font-body">{{ article.year }}</p>
+        <p class="text-sm text-gray-800 pb-2 font-body">{{ article.description }}</p>
+        <a class="text-sm text-gray-700 italic break-all font-light hover:underline font-body" :href="article.link" target="_blank">{{ article.link }}</a>
+      </div>
     </template>
-  </MapboxMap>
+  </MapboxMarker>
+</template>
+</MapboxMap>
 </template>
 
 <script setup>
@@ -101,6 +105,10 @@ const filteredArticles = computed(() => {
     };
     return colorMap[tag] || null;
   };
+
+  const articleForm = (data) => {
+    console.log(data);
+  }
 </script>
 
 <style>
@@ -124,6 +132,10 @@ a:hover {
   color: black;
   font-size: 1.1rem; /* Increase font size */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add box-shadow */
+}
+
+.svg-component {
+  padding-left: 1rem;
 }
 </style>
 
