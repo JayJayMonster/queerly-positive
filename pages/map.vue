@@ -28,9 +28,11 @@
   </div>
 </div>
 </div>
-<div class=" absolute bottom-0 left-0 bg-gray-300/50 px-4 py-4 z-10 m-8 rounded transition-all duration-300 ease-in-out">
-  <!-- TODO fix form -->
-  <UiForm/>
+<div 
+    class=" absolute bottom-0 left-0 bg-gray-300/50 px-4 py-4 z-10 m-8 rounded transition-all duration-300 ease-in-out"
+    :class="{ 'hidden': hover }"
+>
+  <UiForm />
   </div>
   <MapboxMap 
   access-token="pk.eyJ1Ijoiamptb25zdGVyIiwiYSI6ImNsZnYwd3I3dzAyc28zZXBrdHZ3d281b2cifQ.rrueXCO64olGrxsW7Y30Xg"
@@ -65,8 +67,8 @@
   const { getArticleApi } = useArticlesApi();
   const {items : articles } = await getArticleApi();
 
-  const filterTag = ref([]);
   const hover = ref(false);
+  const filterTag = ref([]);
 
 const categories = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Resistance', 'Laws', 'Media', 'Sports', 'Pride'];
   
@@ -106,9 +108,6 @@ const filteredArticles = computed(() => {
     return colorMap[tag] || null;
   };
 
-  const articleForm = (data) => {
-    console.log(data);
-  }
 </script>
 
 <style>
