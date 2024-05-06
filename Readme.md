@@ -1,20 +1,86 @@
-# Queerly Positive
+## Queerly Positive
 
-This is the repo for Queerly Positive.
+### What is Queerly Positive?
 
-Let's show all the good, the positive and the wins for the community.
+Queerly Positive is a positive news application that aims to provide a safe and uplifting space for the LGBTQ+ community. It curates and showcases positive news stories, articles, and content related to the LGBTQ+ community, promoting inclusivity, acceptance, and celebration of diversity.
 
-## Getting started
+### Why Queerly Positive?
 
-1. Open your favorite IDE and then a terminal and copy the complete code. 
+The LGBTQ+ community often faces discrimination, negativity, and underrepresentation in mainstream media. Queerly Positive aims to counter this by creating a platform that highlights the achievements, stories, and voices of the LGBTQ+ community in a positive and empowering way. It serves as a source of inspiration, encouragement, and hope for the community and its allies.
 
-2. Follow the installation process (please note this instructions assumes you’ve chosen npm as a module packager)
+### How Queerly Positive Works
 
-3. Once the app is created, execute the following commands:
+Queerly Positive is built using the Nuxt.js framework and Tailwind CSS. It uses an API to gather and curate positive news stories and content related to the LGBTQ+ community. The application provides a user-friendly interface for browsing and exploring these stories.
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (version X.X.X or higher)
+- [npm](https://www.npmjs.com/) (version X.X.X or higher)
+
+### Installation
+
+1. Clone the repository:
+
+```
+git clone https://github.com/JayJayMonster/queerly-positive.git
+```
+
+2. Navigate to the project directory:
+
+```
+cd queerly-positive
+```
+
+3. Install dependencies:
 
 ```
 npm install
-npi nuxi dev
 ```
 
-4. The default application should be served under: http://localhost:3000/
+### Running the Application
+
+To run the application in development mode, use the following command:
+
+```
+npm run dev
+```
+
+This will start the development server and make the application available at `http://localhost:3000`.
+
+For production builds and deployment, refer to the Nuxt.js documentation.
+
+## Roadmap
+
+- [ ] Look into Leaflet
+- [ ] Make mobile responsive
+- [ ] Use Pinia to store and automatically refresh articles when you upload a new one
+- [ ] Look into interfaces for storing
+- [ ] Optimize code, use more components 
+- [x] Remove 'all' filteroption
+- [x] Add select multiple filters feature
+- [x] Add hover animations for filters
+- [x] Write send new article form
+- [x] Add 'add new article' button
+- [x] Update filter category names
+- [x] Add categories you can filter on
+- [x] Render markers on the world map
+- [x] Write the Readme
+
+## Changelog
+
+### V1.2.0
+- Added 'add new article' form\.
+- Form sends post request to API and adds new marker\.
+- Used component for the form\.
+- Updated the Readme
+
+### V1.1.0
+- Updated filter names and added hover animations. Also changed the CSS a lot\.
+- Optimized code\.
+
+### V1.0.0
+- First version\.
+- Includes mapbox map, markers with data from the api, first version of filter system\.
+

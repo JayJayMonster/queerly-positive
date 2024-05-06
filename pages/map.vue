@@ -70,7 +70,7 @@
   const hover = ref(false);
   const filterTag = ref([]);
 
-const categories = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Resistance', 'Laws', 'Media', 'Sports', 'Pride'];
+const categories = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Activism', 'Laws', 'Culture', 'Sports', 'Pride'];
   
 // Function to filter articles based on selected tags
 const filteredArticles = computed(() => {
@@ -99,9 +99,9 @@ const filteredArticles = computed(() => {
       'Gay': '#FFA500',
       'Lesbian': '#FAEB36',
       'Trans': '#BAD725',
-      'Resistance': "#61A07E",
+      'Activism': "#61A07E",
       'Laws': '#487DE7',
-      'Media': '#4A5AC2',
+      'Culture': '#4A5AC2',
       'Sports': '#4B369D',
       'Pride': '#70369D',
     };

@@ -1,5 +1,5 @@
 <template>
-        <div v-if="showForm">
+        <div v-if="showForm" style="max-width: 16rem;">
             <button @click="toggleForm" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
       <Circle class="w-6 h-6"/>
     </button>
@@ -27,8 +27,8 @@
                 <div class="mb-2">
                     <fieldset>
                         <legend>Tag:</legend>
-                        <div class="grid grid-cols-3 gap-1">
-                            <div v-for="tag in tags" :key="tag" class="flex items-center">
+                        <div class="grid grid-cols-3">
+                            <div v-for="tag in tags" :key="tag">
                                 <input required type="radio" :id="tag" :value="tag" v-model="formData.tag" class="mr-1">
                                 <label :for="tag">{{ tag }}</label>
                             </div>
@@ -60,15 +60,15 @@ import Plus from '@/assets/svg/plus.svg'
 import Circle from '@/assets/svg/x-circle.svg'
 import Right from '@/assets/svg/arrow-right.svg'
 
-const tags = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Resistance', 'Laws', 'Media', 'Sports', 'Pride'];
+const tags = ['LGBTQ', 'Gay','Lesbian', 'Trans', 'Activism', 'Laws', 'Culture', 'Sports', 'Pride'];
 const tagColors = {
   'LGBTQ': '#E81416',
   'Gay': '#FFA500',
   'Lesbian': '#FAEB36',
   'Trans': '#BAD725',
-  'Resistance': "#61A07E",
+  'Activism': "#61A07E",
   'Laws': '#487DE7',
-  'Media': '#4A5AC2',
+  'Culture': '#4A5AC2',
   'Sports': '#4B369D',
   'Pride': '#70369D',
 };
