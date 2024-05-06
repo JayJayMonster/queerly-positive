@@ -4,13 +4,9 @@
 
 Queerly Positive is a positive news application that aims to provide a safe and uplifting space for the LGBTQ+ community. It curates and showcases positive news stories, articles, and content related to the LGBTQ+ community, promoting inclusivity, acceptance, and celebration of diversity.
 
-### Why Queerly Positive?
-
-The LGBTQ+ community often faces discrimination, negativity, and underrepresentation in mainstream media. Queerly Positive aims to counter this by creating a platform that highlights the achievements, stories, and voices of the LGBTQ+ community in a positive and empowering way. It serves as a source of inspiration, encouragement, and hope for the community and its allies.
-
 ### How Queerly Positive Works
 
-Queerly Positive is built using the Nuxt.js framework and Tailwind CSS. It uses an API to gather and curate positive news stories and content related to the LGBTQ+ community. The application provides a user-friendly interface for browsing and exploring these stories.
+Queerly Positive is built using the Nuxt.js framework and Tailwind CSS. It uses an API to gather and curate positive news stories and content related to the LGBTQ+ community. The application provides a user-friendly interface for browsing, filtering and exploring these stories.
 
 ## Getting Started
 
@@ -49,7 +45,7 @@ npm run dev
 
 This will start the development server and make the application available at `http://localhost:3000`.
 
-For production builds and deployment, refer to the Nuxt.js documentation.
+For production builds and deployment, refer to the [Nuxt.js](https://nuxt.com/docs/getting-started/introduction) documentation.
 
 ## Roadmap
 
